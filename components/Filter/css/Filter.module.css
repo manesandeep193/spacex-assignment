@@ -1,0 +1,43 @@
+.container{
+    width: 200px;
+}
+.container > div {
+    border-radius: 5px;
+    background: #fff;
+    padding: 15px;
+}
+.filters p{
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    margin: 0 10px;
+    padding:10px 0;
+}
+.filters ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+.filters ul > li {
+    flex-basis: 50%;
+    flex-grow: 0;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-around;
+  }
+.filters ul > li > span{
+    display: inline-block;
+    padding: 5px;
+    background: rgb(96, 238, 96);
+    text-align: center;
+    cursor: pointer;
+    border-radius: 3px;
+    text-transform: capitalize;
+}
+.filters ul > li.selected > span{
+    background: rgb(4 119 4);
+}
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .container {
+      width:100%;
+    }
+}

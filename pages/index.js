@@ -1,65 +1,53 @@
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import FilterContainer from '../components/Filter/FilterContainer';
+import ProductList from '../components/ProducList/ProductList';
 
-export default function Home() {
+export default function Home({satelites = []}) {
+  const {year, launch, landing} = useSelector(state => state.filtersModuleReducer.FiltersReducer.selected);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const refreshData = () => {
+    router.replace(window.location.search);
+    setIsLoading(true);
+  }
+  useEffect(() => {
+    refreshData();
+  }, [year, launch, landing]);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [satelites]);
+
   return (
-    <div className={styles.container}>
+    <main className='flex-container'>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no"/>
+        <meta name="Description" content="Webpage that list and browse all launches by SpaceX program."/>
+        <title>SpaceX Launch</title>
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+      <FilterContainer/>
+      <ProductList
+        isLoading={isLoading}
+        products={satelites}
+      />
+    </main>
   )
+}
+
+export async function getServerSideProps({query}) {
+  const {year, launch, landing} = query;
+  
+  const queryParams = `${launch ? `&launch_success=${launch}`: ''}${landing ? `&land_success=${landing}`: ''}${year ? `&launch_year=${year}`:''}`;
+  const res = await fetch(`https://api.spaceXdata.com/v3/launches?limit=100&${queryParams}`);
+  const satelites = await res.json();
+  
+  return {
+    props: {
+      satelites
+    }
+  }
 }
