@@ -21,7 +21,7 @@ function Product({img, name, number, mId, year, landing, launch}) {
             <div className={styles['img-content']}>
                 <img src={img} alt={name}/>
             </div>
-            <p><a href='#'>{name}{`#${number}`}</a></p>
+            <h2><a href='#'>{name}{`#${number}`}</a></h2>
             {mId.length > 0 &&
                 <>
                     <p>{'Mission Ids:'}</p>

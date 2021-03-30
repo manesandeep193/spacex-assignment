@@ -18,6 +18,9 @@
     border-radius: 5px;
     width: 100%;
  }
+ .list-content h2 {
+    font-size: 16px;
+ }
  .list-content a{
     color: #035f84;
  }
@@ -32,6 +35,7 @@
  .list-content div {
      text-align: center;
      background: rgb(224, 222, 222);
+     margin-bottom: 10px;
  }
  .list-content div img {
      width:150px;

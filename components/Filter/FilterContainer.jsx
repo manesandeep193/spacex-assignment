@@ -18,7 +18,7 @@ function FilterContainer() {
     return (
         <div className={styles.container}>
             <div>
-                <h4>{'Filters'}</h4>
+                <p><b>{'Filters'}</b></p>
                 <Filter
                     title={'Launch Year'}
                     filterName={'year'}
