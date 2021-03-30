@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a front-end application which would help users list and browse all launches by SpaceX program.
 
 ## Getting Started
 
@@ -14,17 +14,20 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-## Learn More
+## Approach
+1. Created 3 main components (Layout, Filter & ProductList)
+- Layout component is used to structure the page (Header, Content & Footer).
+- Filter component is generic component which is resposible for rendering initial filters, toggling feature & updating the url with filters applied.
+- ProductList component is displaying all the data of launch programms based on filters selected.
 
+2. Apllication has only one page which is managing
+    - Server side rendering of data on page load.
+    - listening to changes in filter component to reload the data.
+
+3. Used React redux for storing information of all filers available and selected filter.
+4. Toggling of filter is based on current selected filter value and selected values present in reducer. 
+
+## Lighthouse score
+![Lighthouse scrore](/C:/Users/smane3/Documents/lighhouse.JPG?raw=true "Lighthouse score")
 To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
