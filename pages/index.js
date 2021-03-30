@@ -42,7 +42,7 @@ export async function getServerSideProps({query}) {
   const {year, launch, landing} = query;
   
   const queryParams = `${launch ? `&launch_success=${launch}`: ''}${landing ? `&land_success=${landing}`: ''}${year ? `&launch_year=${year}`:''}`;
-  const res = await fetch(`https://api.spaceXdata.com/v3/launches?limit=100&${queryParams}`);
+  const res = await fetch(`${process.env.API_BASE_URL}${queryParams}`);
   const satelites = await res.json();
   
   return {
